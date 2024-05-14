@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+
+  fastapi:
+    build: ./
+    image: panda-leadid:latest
+    container_name: panda-leadid
+    restart: always
+    ports:
+      - 1111:8000
+      - 11111:7860
