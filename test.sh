@@ -1,0 +1,1 @@
+nohup python fast_api_sdf.py > fast.log 2>&1 & python gradio_app.py > gradio.log 2>&1
