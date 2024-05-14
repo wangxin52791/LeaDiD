@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 from rdkit.DataStructs import cDataStructs
 import numpy as np
 import pandas as pd
-import  network_case
+import  LeaDiD.src.network_case as network_case
 from rdkit import Chem
 from mordred import Calculator, descriptors
 import concurrent.futures
@@ -122,7 +122,7 @@ def feature_selection_saved(X,file):
 def single_inference(algorithms,dict_rounds_get,X_,df_probability_total):
         df_probability = pd.DataFrame()
         for algorithm in algorithms:
-            path = f'./models/{algorithm}_all'
+            path = f'../models/{algorithm}_all'
             #path = f'../results/{algorithm}_all'
             for r in dict_rounds_get.get(algorithm):
                 file=f'{path}/FeatureSelection_{r}.pkl'
@@ -165,7 +165,7 @@ def inference(df_test):
                                         'P_Ca_SMILES':df_p.P_Ca_SMILES.tolist(),
                                     })
             for algorithm in algorithms:
-                path = f'./models/{algorithm}_all'
+                path = f'../models/{algorithm}_all'
                 #path = f'../results/{algorithm}_all'
                 for r in dict_rounds_get.get(algorithm):
                     file=f'{path}/FeatureSelection_{r}.pkl'
@@ -199,23 +199,3 @@ def main(data):
     inference_data=data_transform(data)
     print(inference(inference_data))
 
-#if __name__ == "__main__":
-    #data=['CC1(C)CCc2[nH]c3cc(F)cc4c3c2C1N=NC4=O', 'Cn1c(C2(C)CCCN2C(=O)OCc2ccccc2)cc2c(C(=O)O)cccc21', 'c1ccc2[nH]ccc2c1', 'Cn1c(C2(C)CCCN2)cc2c(C(=O)O)cccc21', 'COC(=O)c1cccc2c1c1c(n2C)CCCC1=O', 'CN1CCCCc2[nH]c3cccc4c3c2C(=CNC4=O)C1', 'CC(C)c1ccc(C2Cc3[nH]c4cc(F)cc5c4c3C(C2)N=NC5=O)cc1', 'CC1CCN2CC(=O)c3c([nH]c4cccc(C(=O)O)c34)C12', 'O=c1ccnnc2ccc3c4ccccc4[nH]c3c12', 'CC(C)(N)C(=O)N1CC2=NNC(O)c3cccc4[nH]c(c2c34)C1', 'O=c1[nH][nH]c2c3c([nH]c4cccc1c43)=CCC2', 'CC(C)(C)C(=O)N1CC2=NNCOCc3cccc4[nH]c(c2c34)C1', 'CN(C)c1ccc(C2Cc3[nH]c4cccc5c4c3C(C2)N=NC5=O)cc1', 'CC(C)(N)C(=O)N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CN1CCCCc2[nH]c3cccc4c3c2C(=NNC4=O)C1', 'Cc1ccc2c3c4c([nH]c13)C1CCCN1CC4=NNC2=O', 'CC12CCCN1CC1=CNC(=O)c3cccc4[nH]c2c1c34', 'Cc1c2cc[n+](C)cc2c(C)c2c1[nH]c1ccc(O)cc12', 'CC1(C)CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'COC(=O)c1cccc2[nH]c(C3(C)CCCN3C(=O)OCc3ccccc3)cc12', 'CN1N=C2CC(C)(C)Cc3c2c2c(cccc2n3C)C1=O', 'O=C1NN=C2CCCc3[nH]c4c(F)ccc1c4c32', 'CC(C)(C)C(=O)N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CN1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CC1c2[nH]c3cccc(C(=O)O)c3c2C(=O)CN1CCN(C)C', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN1CCCC31', 'CC(C)N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'O=C1NN=C2CCCc3[nH]c4cccc1c4c32', 'CC12CCCN1CC1=NNC(O)c3cc(F)cc4[nH]c2c1c34', 'CN1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CC1(C)CCc2[nH]c3cc(F)cc4c3c2C1=NNC4=O', 'O=C1NN=C2CC(c3ccccc3)Cc3[nH]c4cc(F)cc1c4c32', 'CC1CCN2CC3=NNC(=O)c4cccc5[nH]c(c3c45)C12', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CNC3', 'COC(=O)c1cc(F)cc2[nH]c3c(c12)C(=O)CN1CCCC31C', 'Cc1c[nH]c2c1C13CC1CN(C(=O)c1cc4cc(NC(=O)c5coc6ccccc56)ccc4[nH]1)C3=CC2=O', 'CC(C)C1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CC1(C)CCc2[nH]c3cccc4c3c2C1=NNC4=O', 'CC(C)C1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN(C)C3', 'O=C1NN=C2CC(c3ccccc3)Cc3[nH]c4cccc1c4c32', 'CC12CCCN1CC1=NNC(=O)c3cc(F)cc4[nH]c2c1c34', 'CN(C)c1ccc(C2CC3=NNC(=O)c4cc(F)cc5[nH]c(c3c45)C2)cc1', 'CC(C)N1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'O=C1NN=C2CCCCc3[nH]c4cccc1c4c32', 'O=C1NN=C2CN(C(=O)C3CC3)Cc3[nH]c4cccc1c4c32', 'CC1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'O=C1NN=C2CNCc3[nH]c4cc(F)cc1c4c32', 'CN1CCCCc2[nH]c3cc(F)cc4c3c2C(=NNC4=O)C1', 'CC1(C)CCc2[nH]c3ccc(CC4CC5=NNC(=O)c6cccc7[nH]c(c5c67)C4)c4c3c2C1=NNC4=O', 'CN(C)CCn1c2c3c4c(cc(F)cc41)C(=O)NN=C3CN(C(=O)C1CC1)C2', 'CC(C)(N)C(=O)N1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CC1(C)CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'O=C1NN=C2CNCc3[nH]c4cccc1c4c32', 'COC(=O)c1cccc2[nH]c(C3(C)CCCN3)cc12', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN1CCCC31C', 'CN(C)c1ccc(C2CC3=NNC(=O)c4cccc5[nH]c(c3c45)C2)cc1', 'COCOCc1cccc2[nH]c(C3(C)CCCN3CC(=O)OC)cc12', 'COC(=O)c1cc(F)cc2[nH]c(C3(C)CCCN3)cc12', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN(CCN(C)C)C3', 'CC1(C)CC2=NNC(=O)c3c(F)ccc4[nH]c(c2c34)C1', 'O=C1NN=C2CN(C3CCCCC3)Cc3[nH]c4cccc1c4c32', 'O=C1NN=C2CN(C(=O)OCc3ccccc3)Cc3[nH]c4cccc1c4c32', 'O=C1NN=C2CCCCc3[nH]c4cc(F)cc1c4c32', 'CC1(C)CC2=NN(CCO)C(=O)c3cccc4c3c2c(n4CCO)C1', 'CC1(Cc2cc3c4c5c([nH]c4c2F)CCCC5=NNC3=O)CC2=NNC(=O)c3c(F)ccc4[nH]c(c2c34)C1', 'CC1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'Cn1c2c3c4c(cccc41)C(=O)NN=C3CC(c1ccc3c4c1C(=O)NN=C1CC(C)(C)Cc(c41)n3C)C2', 'O=C1NN=C2CCCc3[nH]c4cc(F)cc1c4c32', 'NC(Cc1ccccc1)C(=O)N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CC12CCCN1CC1=NNC(=O)c3cccc4[nH]c2c1c34', 'CN(C)CCn1c2c3c4c(cccc41)C(=O)NN=C3CN(C(=O)C1CC1)C2', 'CC(C)(C)OC(=O)NC(Cc1ccccc1)C(=O)N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CCCN1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'CC(N1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1)C(C)(C)N', 'CC1(C)CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1O', 'O=C1NN=C2CN(C(=O)C3CC3)Cc3[nH]c4cc(F)cc1c4c32', 'CC(C)(C)C(=O)N1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'COC(=O)c1cc(F)cc2[nH]c(C3(C)CCCN3C(=O)C(F)(F)F)cc12', 'CN(C)CCn1c2c3c4c(cc(F)cc41)C(=O)NN=C3CC(C)(C)C2', 'Cn1c2c3c4c(cccc41)C(=O)NN=C3CCC2', 'COC(=O)CN1CCCC1(C)c1cc2c(C(=O)OC)cc(F)cc2[nH]1', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CCC3', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN(C(=O)OCc1ccccc1)C3', 'COC(=O)c1cc(F)cc2[nH]c3c(c12)C(=O)CNC3', 'COC(=O)CN1CCCC1(C)c1cc2c(C(=O)OC)cccc2[nH]1', 'CN(C)CCN1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'O=C1NN=C2CN(C(=O)C3=CC3)Cc3[nH]c4cccc1c4c32', 'COC(=O)c1cc(C)cc2[nH]c3c(c12)C(=O)CNC3', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CC(C)(C)C3', 'Cn1c2c3c4c(cccc41)C(=O)NN=C3CC(C)(C)C2', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CCO)C1', 'CC1c2[nH]c3cc(F)cc4c3c2C(=NNC4=O)CC1(C)C', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CC2CO2)C1', 'CC1(C)CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1=O', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN(C(=O)C1CC1)C3', 'COC(=O)CN1CCCC1(C)c1cc2c(C(=O)O)cc(F)cc2[nH]1', 'CC(C)(C)CCN1CC2=NNC(=O)c3cccc4[nH]c(c2c34)C1', 'COC(=O)c1cccc2[nH]c3c(c12)C(=O)CN(C(=O)C1=CC1)C3', 'CN(C)CCn1c2c3c4c(cccc41)C(=O)NN=C3CCC2', 'O=C1NN=C2CCCc3c2c2c1cccc2n3Cc1ccccc1', 'CN(C)CCN1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CN(C)CCn1c2c3c4c(cccc41)C(=O)NN=C3CC(C)(C)C2', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4Cc2ccccc2)C1', 'CCCN1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CCCCN1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CCN1CC2=NNC(=O)c3cc(F)cc4[nH]c(c2c34)C1', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CCN2CCCC2)C1', 'CCN(CC)CCn1c2c3c4c(cccc41)C(=O)NN=C3CCC2', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CCN(Cc2ccccc2)Cc2ccccc2)C1', 'O=C1NN=C2CCCc3c2c2c1cccc2n3CCN1CCCC1', 'O=C1NN=C2CCCc3c2c2c1cccc2n3CCN(Cc1ccccc1)Cc1ccccc1', 'O=C1NN=C2CCCc3c2c2c1cccc2n3CCN1CCOCC1', 'O=C1NN=C2CCCc3c2c2c1cccc2n3CCN1CCCCC1', 'CCN(CC)CCn1c2c3c4c(cccc41)C(=O)NN=C3CC(C)(C)C2', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CCN2CCCCC2)C1', 'CC1(C)CC2=NNC(=O)c3cccc4c3c2c(n4CCN2CCOCC2)C1']
-    
-    # filename = input()
-    # data_smi = pd.read_csv(filename)
-    # data_smi_df = data_smi[data_smi["SMILES"]!=np.nan]
-    # smilist = data_smi_df["SMILES"].to_list()
-    # main(smilist)
-    # filename = '/home/yifan/PatentNetML/data/datacase/WO2017023905_SMILES.csv'
-    # data_smi = pd.read_csv(filename)
-    # for s in data_smi:
-    #     print(type(s),len(data_smi))
-    # decide_data(data_smi)
-    #filename = '/home/yifan/PatentNetML/data/datacase/WO2022060836_SMILES.csv'
-    #data_smi = pd.read_csv(filename)
-    #data_smi=data_smi.drop_duplicates()
-    #data_smi_df = data_smi[data_smi["SMILES"]!=np.nan]
-    #smilist = data_smi_df["SMILES"].to_list()
-    #main(smilist)
-    #filename = '/home/yifan/PatentNetML/data/datacase/WO2017023905_SMILES.csv'

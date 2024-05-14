@@ -4,8 +4,8 @@ services:
 
   fastapi:
     build: ./
-    image: panda-leadid:latest
-    container_name: panda-leadid
+    image: leadid:latest
+    container_name: leadid
     restart: always
     ports:
       - 1111:8000

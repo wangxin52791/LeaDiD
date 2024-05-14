@@ -324,15 +324,7 @@ def single_patent_network_generation(fps,fp_class,tlist):
     NetworkMatrix = pd.concat(results, axis=1)
 
      
-    # for t in tlist:
-    #     print(t)
-    #     try:
-    #         network_matrix = single_network(fp_class,SimMatrix,t,n)
-    #     except Exception as e:
-    #         print(e.args)
-    #         print(str(e))
-    #         print(repr(e))
-    #     NetworkMatrix = pd.concat([NetworkMatrix,network_matrix],axis=1)
+
 
     end_time = time.time()  
     execution_time = end_time - start_time  
