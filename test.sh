@@ -1,1 +1,1 @@
-nohup python .src/fast_api_sdf.py > fast.log 2>&1 & python .src/gradio_app.py > gradio.log 2>&1
+nohup python src/fast_api_sdf.py > fast.log 2>&1 & python src/gradio_app.py > gradio.log 2>&1
